@@ -180,3 +180,48 @@ select * from OrdrTable;
 
 
 --SET Default
+create table C_Table
+(
+CustomersId int primary key,
+CustomersName varchar(50),
+CustomersAddress varchar(max),
+City varchar(50)
+);
+
+select * from C_Table;
+
+insert into C_Table values(0, 'Unknown', 'No Address', 'No City');
+insert into C_Table values(3451, 'Junaid', 'University of Karachi', 'Karachi');
+insert into C_Table values(3324, 'Talha', 'University of Lahore', 'Lahore');
+insert into C_Table values(3782, 'Sohail', 'University of Rawalpindi', 'Rawalpindi');
+insert into C_Table values(2561, 'Izhaan', 'University of Peshawar', 'Peshawar');
+insert into C_Table values(1103, 'Zoroo', 'University of Multan', 'Multan');
+insert into C_Table values(4451, 'Sheeraz', 'University of Gujrat', 'Gujrat');
+
+create table Ordr_Table
+(
+OrdersId int primary key,
+ItemName varchar(50),
+Quantity int,
+Price1item int,
+CustomersId int foreign key references C_Table(CustomersId)
+on delete set default --for delete the data from primary and set default apply(show) on foriegn key data/table
+on update set default --for update thedata in primary table but set default apply(show) on foriegn key data//table
+);
+
+insert into Ordr_Table values(24,'Atta',  2, 1200,3451);
+insert into Ordr_Table values(32, 'Ghee', 3, 390,3324);
+insert into Ordr_Table values(45, 'Suger', 2, 149,3782);
+insert into Ordr_Table values(63, 'White channa', 2, 360,2561);
+insert into Ordr_Table values(27, 'Black Channa', 180, 3,1103);
+insert into Ordr_Table values(33, 'Black Channa', 180, 3,3324);
+insert into Ordr_Table values(97, 'Oil', 5, 380,4451);
+
+delete from C_Table where customersId = 1103;  --for delete spacific data in table 
+update C_Table set CustomersId = 7865 where CustomersId = 3782; --for update spacific data in table 
+
+alter table Ordr_Table add default 0 for CustomersId;
+
+
+select * from C_Table;
+select * from Ordr_Table;
